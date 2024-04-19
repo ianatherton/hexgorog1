@@ -43,6 +43,7 @@ func main() {
     initGame()
 
     go handleInput()
+    go handleResetGame()
 
     targetFrameDuration := time.Second / targetFPS
 
@@ -175,6 +176,17 @@ func handleInput() {
             }
             targetPos = position{q, r}
             hasTargetPos = true
+        }
+    }
+}
+
+func handleResetGame() {
+    for {
+        ev := termbox.PollEvent()
+        if ev.Type == termbox.EventKey {
+            if ev.Ch == 'r' {
+                initGame()
+            }
         }
     }
 }
